@@ -1,6 +1,21 @@
 # Changelog
 
 
+## [0.3.0](https://github.com/vjousse/changelog-action-test/compare/v0.2.0..v0.3.0) (2024-10-08)
+
+
+
+### 🚀 Features
+
+- Trigger 0.3.0
+- Create release
+
+### 🐛 Bug Fixes
+
+- Trigger 0.2.1
+- Add missing git-cliff option
+
+
 ## [0.2.0](https://github.com/vjousse/changelog-action-test/compare/v0.1.0..v0.2.0) (2024-10-08)
 
 
