@@ -1,4 +1,4 @@
-name: Generate changelog
+name: Generate changelog PR
 
 on:
   push:
