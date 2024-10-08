@@ -2,9 +2,12 @@ name: Generate changelog
 
 on:
   push:
-    branches: [master]
-  pull_request:
+    branches: [main]
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
 
 permissions:
   contents: write
@@ -47,7 +50,7 @@ jobs:
         with:
           add-paths: |
             CHANGELOG-cliff.md
-          base: master
+          base: main
           commit-message: "chore: update changelog for ${{ steps.git-cliff.outputs.version }}"
           signoff: false
           branch: chore/update-changelog-${{ steps.git-cliff.outputs.version }}
@@ -58,40 +61,47 @@ jobs:
             pending-release
             automated pr
 
-      # - name: Commit the changelog
-      #   run: |
-      #     git checkout ${{ steps.extract_branch.outputs.branch }}
-      #     git config user.name 'github-actions[bot]'
-      #     git config user.email 'github-actions[bot]@users.noreply.github.com'
-      #     set +e
-      #     git add CHANGELOG-cliff.md
-      #     git commit -m "Update changelog"
-      #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.extract_branch.outputs.branch }}
-      #
-      # - name: Tag the next version
-      #   run: |
-      #     git checkout ${{ steps.extract_branch.outputs.branch }}
-      #     git config user.name 'github-actions[bot]'
-      #     git config user.email 'github-actions[bot]@users.noreply.github.com'
-      #     set +e
-      #     git tag -f ${{ steps.git-cliff.outputs.version }}-cliff-test
-      #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.git-cliff.outputs.version }}-cliff-test
-      #
-      # - name: Create dist archive
-      #   uses: ./.github/actions/build-release
-      #   id: create-dist-archive
-      #   with:
-      #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
-      #     commit_sha: ${{ github.event.pull_request.head.sha }}
-      #     encryption_key: ${{ secrets.ENCRYPTION_KEY }}
-      #     private_ssh_key: ${{ secrets.PRIVATE_SSH_KEY }}
-      #
-      #
-      # - name: Upload the release
-      #   uses: svenstaro/upload-release-action@v2
-      #   with:
-      #     file: ${{ steps.create-dist-archive.outputs.dist-archive}}
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
-      #     body: ${{ steps.git-cliff-latest.outputs.content }}
-      #     draft: true
+  create_tag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo The PR with title ${{ github.event.pull_request.title }} was merged
+
+        # - name: Commit the changelog
+        #   run: |
+        #     git checkout ${{ steps.extract_branch.outputs.branch }}
+        #     git config user.name 'github-actions[bot]'
+        #     git config user.email 'github-actions[bot]@users.noreply.github.com'
+        #     set +e
+        #     git add CHANGELOG-cliff.md
+        #     git commit -m "Update changelog"
+        #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.extract_branch.outputs.branch }}
+        #
+        # - name: Tag the next version
+        #   run: |
+        #     git checkout ${{ steps.extract_branch.outputs.branch }}
+        #     git config user.name 'github-actions[bot]'
+        #     git config user.email 'github-actions[bot]@users.noreply.github.com'
+        #     set +e
+        #     git tag -f ${{ steps.git-cliff.outputs.version }}-cliff-test
+        #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.git-cliff.outputs.version }}-cliff-test
+        #
+        # - name: Create dist archive
+        #   uses: ./.github/actions/build-release
+        #   id: create-dist-archive
+        #   with:
+        #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
+        #     commit_sha: ${{ github.event.pull_request.head.sha }}
+        #     encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+        #     private_ssh_key: ${{ secrets.PRIVATE_SSH_KEY }}
+        #
+        #
+        # - name: Upload the release
+        #   uses: svenstaro/upload-release-action@v2
+        #   with:
+        #     file: ${{ steps.create-dist-archive.outputs.dist-archive}}
+        #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+        #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
+        #     body: ${{ steps.git-cliff-latest.outputs.content }}
+        #     draft: true
