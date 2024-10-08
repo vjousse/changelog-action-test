@@ -6,8 +6,27 @@ on:
 
 jobs:
   create_tag:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)')
     runs-on: ubuntu-latest
+
     steps:
-      - run: |
-          echo The PR with title ${{ github.event.pull_request.title }} was merged
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate latest changes
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: cliff.toml
+          args: --verbose --exclude-path "data/" --bump
+
+      - name: Set up Git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Create and push tag
+        run: |
+
+          git tag -a "v${{ steps.git-cliff.outputs.version }}" -m "Release ${{ steps.git-cliff.outputs.version }}"
+          git push origin "v${{ steps.git-cliff.outputs.version }}"
