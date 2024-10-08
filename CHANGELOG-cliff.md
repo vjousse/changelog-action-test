@@ -9,6 +9,7 @@
 
 - Remove release creation from changelog
 - Don't create tag if version is empty
+- Try to get latest version
 
 
 ## 0.1.0 (2024-10-08)
