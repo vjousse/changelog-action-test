@@ -50,7 +50,7 @@ jobs:
           base: main
           commit-message: "chore: update changelog for ${{ steps.git-cliff.outputs.version }}"
           signoff: false
-          branch: chore/update-changelog-${{ steps.git-cliff.outputs.version }}
+          branch: chore/next-release-changelog
           delete-branch: true
           title: "chore(release): release ${{ steps.git-cliff.outputs.version }}"
           body: ${{ steps.git-cliff-latest.outputs.content }}
