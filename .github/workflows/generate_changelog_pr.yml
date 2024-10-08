@@ -35,11 +35,6 @@ jobs:
           config: cliff.toml
           args: --verbose --latest --strip header --exclude-path "data/" --bump --unreleased
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
-
       - name: Create Pull Request
         if: steps.git-cliff.outputs.version != 'null'
         id: cpr
