@@ -21,10 +21,10 @@ jobs:
 
       - name: Get latest version
         uses: orhun/git-cliff-action@v4
-        id: git-cliff
+        id: git_cliff
         with:
           config: cliff.toml
-          args: --verbose --exclude-path "data/" --bump
+          args: -vv --latest --strip header --exclude-path "data/" --bump
 
       - name: Set up Git
         run: |
@@ -32,10 +32,21 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Create and push tag
-        if: steps.git-cliff.outputs.version != 'null'
+        if: steps.git_cliff.outputs.version != 'null'
+        id: tag_creation
         run: |
-          git tag -a "${{ steps.git-cliff.outputs.version }}" -m "Release ${{ steps.git-cliff.outputs.version }}"
-          git push origin "${{ steps.git-cliff.outputs.version }}"
+          git tag -a "${{ steps.git_cliff.outputs.version }}" -m "Release ${{ steps.git_cliff.outputs.version }}"
+          git push origin "${{ steps.git_cliff.outputs.version }}"
+          echo "tag_created=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        if: steps.tag_creation.outputs.tag_created
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.git_cliff.outputs.version }}
+          body: ${{ steps.git_cliff.outputs.content }}
+          generate_release_notes: false
+          make_latest: true
 
         # - name: Create dist archive
         #   uses: ./.github/actions/build-release
