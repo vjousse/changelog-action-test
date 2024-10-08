@@ -19,6 +19,7 @@
 - Fetch all commits
 - Tag name
 - Duplicate PRs
+- Pull request labels
 
 
 ## 0.1.0 (2024-10-08)
