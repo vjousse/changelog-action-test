@@ -1,7 +1,23 @@
 # Changelog
 
 
-## [0.4.0](https://github.com/vjousse/changelog-action-test/compare/v0.3.0..v0.4.0) (2024-10-08)
+## [0.4.1](https://github.com/vjousse/git-cliff-release-creation-exemple/compare/v0.4.0..v0.4.1) (2024-10-08)
+
+
+
+### 🐛 Bug Fixes
+
+- Commit wording
+- Only generate latest changes
+- Repo name
+
+### ⚙️ Miscellaneous Tasks
+
+- Rename files
+- Remove useless step
+
+
+## [0.4.0](https://github.com/vjousse/git-cliff-release-creation-exemple/compare/v0.3.0..v0.4.0) (2024-10-08)
 
 
 
@@ -10,7 +26,7 @@
 - Upload file to release
 
 
-## [0.3.0](https://github.com/vjousse/changelog-action-test/compare/v0.2.0..v0.3.0) (2024-10-08)
+## [0.3.0](https://github.com/vjousse/git-cliff-release-creation-exemple/compare/v0.2.0..v0.3.0) (2024-10-08)
 
 
 
@@ -25,7 +41,7 @@
 - Add missing git-cliff option
 
 
-## [0.2.0](https://github.com/vjousse/changelog-action-test/compare/v0.1.0..v0.2.0) (2024-10-08)
+## [0.2.0](https://github.com/vjousse/git-cliff-release-creation-exemple/compare/v0.1.0..v0.2.0) (2024-10-08)
 
 
 
@@ -62,7 +78,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Add github workflow
-- Changelog action ([#1](https://github.com/MTES-MCT/ecobalyse/issues/1))
+- Changelog action ([#1](https://github.com/vjousse/git-cliff-release-creation-exemple/issues/1))
 - Try to tag version on PR merge
 - Add required permissions
 
