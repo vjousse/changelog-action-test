@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [closed]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   create_tag:
     if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)')
