@@ -33,7 +33,7 @@ jobs:
         id: git-cliff-latest
         with:
           config: cliff.toml
-          args: --verbose --exclude-path "data/" --bump --unreleased
+          args: --verbose --latest --strip header --exclude-path "data/" --bump --unreleased
 
       - name: Extract branch name
         shell: bash
