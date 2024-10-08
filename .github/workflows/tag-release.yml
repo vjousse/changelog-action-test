@@ -34,5 +34,5 @@ jobs:
       - name: Create and push tag
         if: steps.git-cliff.outputs.version != 'null'
         run: |
-          git tag -a "v${{ steps.git-cliff.outputs.version }}" -m "Release ${{ steps.git-cliff.outputs.version }}"
-          git push origin "v${{ steps.git-cliff.outputs.version }}"
+          git tag -a "${{ steps.git-cliff.outputs.version }}" -m "Release ${{ steps.git-cliff.outputs.version }}"
+          git push origin "${{ steps.git-cliff.outputs.version }}"
