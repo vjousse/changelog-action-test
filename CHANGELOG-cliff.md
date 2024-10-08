@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [0.4.0](https://github.com/vjousse/changelog-action-test/compare/v0.3.0..v0.4.0) (2024-10-08)
+
+
+
+### 🚀 Features
+
+- Upload file to release
+
+
 ## [0.3.0](https://github.com/vjousse/changelog-action-test/compare/v0.2.0..v0.3.0) (2024-10-08)
 
 
