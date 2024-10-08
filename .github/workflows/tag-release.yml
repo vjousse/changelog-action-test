@@ -24,7 +24,7 @@ jobs:
         id: git_cliff
         with:
           config: cliff.toml
-          args: -vv --latest --strip header --exclude-path "data/" --bump
+          args: -vv --latest --strip header --exclude-path "data/" --bump --unreleased
 
       - name: Set up Git
         run: |
