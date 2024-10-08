@@ -1,9 +1,13 @@
 # Changelog
 
 
-## [0.1.1](https://github.com/vjousse/changelog-action-test/compare/v0.1.0..v0.1.1) (2024-10-08)
+## [0.2.0](https://github.com/vjousse/changelog-action-test/compare/v0.1.0..v0.2.0) (2024-10-08)
 
 
+
+### 🚀 Features
+
+- Check PR labels before creating tag
 
 ### 🐛 Bug Fixes
 
@@ -13,6 +17,7 @@
 - Don't connect to remote
 - Fetch tags for git-cliff
 - Fetch all commits
+- Tag name
 
 
 ## 0.1.0 (2024-10-08)
