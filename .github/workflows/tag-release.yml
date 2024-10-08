@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   create_tag:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.issue.labels.*.name, 'automated') && contains(github.event.issue.labels.*.name, 'pending-release')
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.pull_request.labels.*.name, 'automated') && contains(github.event.pull_request.labels.*.name, 'pending-release')
     runs-on: ubuntu-latest
 
     steps:
