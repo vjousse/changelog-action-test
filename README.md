@@ -1,3 +1,3 @@
 # changelog-action-test
 
-Trigger non empty commit
+Trigger 0.3.0
