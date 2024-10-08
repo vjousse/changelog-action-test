@@ -13,6 +13,7 @@
 - Don't connect to remote
 - Fetch tags for git-cliff
 - Fetch all commits
+- Tag name
 
 
 ## 0.1.0 (2024-10-08)
