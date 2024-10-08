@@ -41,6 +41,7 @@ jobs:
         id: extract_branch
 
       - name: Create Pull Request
+        if: steps.git-cliff.outputs.version != 'null'
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
@@ -55,42 +56,4 @@ jobs:
           body: ${{ steps.git-cliff-latest.outputs.content }}
           labels: |
             pending-release
-            automated pr
-
-        # - name: Commit the changelog
-        #   run: |
-        #     git checkout ${{ steps.extract_branch.outputs.branch }}
-        #     git config user.name 'github-actions[bot]'
-        #     git config user.email 'github-actions[bot]@users.noreply.github.com'
-        #     set +e
-        #     git add CHANGELOG-cliff.md
-        #     git commit -m "Update changelog"
-        #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.extract_branch.outputs.branch }}
-        #
-        # - name: Tag the next version
-        #   run: |
-        #     git checkout ${{ steps.extract_branch.outputs.branch }}
-        #     git config user.name 'github-actions[bot]'
-        #     git config user.email 'github-actions[bot]@users.noreply.github.com'
-        #     set +e
-        #     git tag -f ${{ steps.git-cliff.outputs.version }}-cliff-test
-        #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.git-cliff.outputs.version }}-cliff-test
-        #
-        # - name: Create dist archive
-        #   uses: ./.github/actions/build-release
-        #   id: create-dist-archive
-        #   with:
-        #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
-        #     commit_sha: ${{ github.event.pull_request.head.sha }}
-        #     encryption_key: ${{ secrets.ENCRYPTION_KEY }}
-        #     private_ssh_key: ${{ secrets.PRIVATE_SSH_KEY }}
-        #
-        #
-        # - name: Upload the release
-        #   uses: svenstaro/upload-release-action@v2
-        #   with:
-        #     file: ${{ steps.create-dist-archive.outputs.dist-archive}}
-        #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-        #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
-        #     body: ${{ steps.git-cliff-latest.outputs.content }}
-        #     draft: true
+            automated

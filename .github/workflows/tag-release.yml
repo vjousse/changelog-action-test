@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   create_tag:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)')
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.issue.labels.*.name, 'automated') && contains(github.event.issue.labels.*.name, 'pending-release')
     runs-on: ubuntu-latest
 
     steps:
@@ -36,3 +36,22 @@ jobs:
         run: |
           git tag -a "${{ steps.git-cliff.outputs.version }}" -m "Release ${{ steps.git-cliff.outputs.version }}"
           git push origin "${{ steps.git-cliff.outputs.version }}"
+
+        # - name: Create dist archive
+        #   uses: ./.github/actions/build-release
+        #   id: create-dist-archive
+        #   with:
+        #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
+        #     commit_sha: ${{ github.event.pull_request.head.sha }}
+        #     encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+        #     private_ssh_key: ${{ secrets.PRIVATE_SSH_KEY }}
+        #
+        #
+        # - name: Upload the release
+        #   uses: svenstaro/upload-release-action@v2
+        #   with:
+        #     file: ${{ steps.create-dist-archive.outputs.dist-archive}}
+        #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+        #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
+        #     body: ${{ steps.git-cliff-latest.outputs.content }}
+        #     draft: true
