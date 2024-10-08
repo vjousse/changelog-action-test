@@ -22,7 +22,7 @@ jobs:
         id: git-cliff
         with:
           config: cliff.toml
-          args: --verbose --exclude-path "data/" --bump
+          args: --verbose --exclude-path "data/" --bump --unreleased
 
       - name: Set up Git
         run: |
@@ -30,7 +30,7 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Create and push tag
+        if: steps.git-cliff.outputs.version
         run: |
-
           git tag -a "v${{ steps.git-cliff.outputs.version }}" -m "Release ${{ steps.git-cliff.outputs.version }}"
           git push origin "v${{ steps.git-cliff.outputs.version }}"
